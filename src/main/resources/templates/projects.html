@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/theme.css">
+      <script src="jquery/jquery-2.1.1.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="script/docs.min.js"></script>
+      <script src="script/back-to-top.js"></script>
+	<style>
+#footer {
+    padding: 15px 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    text-align: center;
+}
+#topcontrol {
+  color: #fff;
+  z-index: 99;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  background: #222;
+  position: relative;
+  right: 14px !important;
+  bottom: 11px !important;
+  border-radius: 3px !important;
+}
+
+#topcontrol:after {
+  /*top: -2px;*/
+  left: 8.5px;
+  content: "\f106";
+  position: absolute;
+  text-align: center;
+  font-family: FontAwesome;
+}
+
+#topcontrol:hover {
+    color: #fff;
+    background: #18ba9b;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.label-type, .label-status, .label-order {
+    background-color: #fff;
+    color: #f60;
+    padding : 5px;
+    border: 1px #f60 solid;
+}
+#typeList  :not(:first-child) {
+    margin-top:20px;
+}
+.label-text {
+    margin:0 10px;
+}
+.panel {
+    border-radius:0;
+}
+h3.break {
+    font-size:16px;
+    display: block;
+    white-space: nowrap;
+    word-wrap: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+h3.break>a {
+    text-decoration:none;
+}
+	</style>
+  </head>
+  <body>
+ <div class="navbar-wrapper">
+      <div class="container">
+			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			  <div class="container">
+				<div class="navbar-header">
+				  <a class="navbar-brand" href="#" style="font-size:32px;">二手交易平台</a>
+				</div>
+                  <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                      <ul class="nav navbar-nav">
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i><span id="username" class="name" th:text="${session.loginUser?.username}"></span><span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+
+                                  <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
+                                  <li class="divider"></li>
+                                  <li><a th:href="@{/signOffUser}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                              </ul>
+                          </li>
+                      </ul>
+                  </div>
+			  </div>
+			</nav>
+      </div>
+    </div>
+
+    <div class="container theme-showcase" role="main">
+
+
+        
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                        </div>
+                        <div class="panel-footer" style="height:50px;padding:0;">
+                            <div style="float:left;padding:15px;">
+                            共[[${pageInfo.total}]]个商品
+                            </div>
+                            <div style="float:right;">
+                                <form class="navbar-form navbar-left" role="search" th:action="@{/researchGoods}" method="get">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="researchInput" placeholder="请输入搜索内容">
+                                    </div>
+                                    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i> 搜索</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="row">
+				<div class="col-md-3" th:each="goods:${goods}">
+                    <div class="thumbnail">
+                        <img alt="300x200" th:src="@{'/images/'+${goods.headerFilePath}}"/>
+                        <div class="caption">
+                            <h3 class="break">
+                                <a th:href="@{/project/}+${goods.id}" th:text="${goods.goodName}"></a>
+                            </h3>
+                            <p>
+                            <div style="float:left;"><i class="glyphicon glyphicon-screenshot"
+                                                        title="价格"></i> <span th:text="${goods.price}"></span>
+                            </div>
+                            <div style="float:right;"><i title="剩余"
+                                                         class="glyphicon glyphicon-calendar"></i>
+                                <span th:text="${goods.sales}"></span>
+                            </div>
+                            </p>
+                            <br>
+                            <div><span style="float:right;"><i
+                                    class="glyphicon glyphicon-star-empty"></i></span> <span><i
+                                    class="glyphicon glyphicon-user" title="可获积分"></i> </span> <span th:text="${goods.mark}"></span></div>
+                        </div>
+                    </div>
+					</div>
+				</div>
+
+
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+
+
+        <div class="modal-footer no-margin-top">
+            <div class="col-md-6">
+                <strong>当前第 [[${pageInfo.pageNum}]]页,共 [[${pageInfo.pages}]] 页.一共 [[${pageInfo.total}]] 条记录
+                </strong>
+            </div>
+            <ul class="pagination pull-right no-margin">
+                <li th:if="${pageInfo.hasPreviousPage}">
+                    <a th:href="'/projects?pageNum=1'">首页</a>
+                </li>
+                <li class="prev" th:if="${pageInfo.hasPreviousPage}">
+                    <a th:href="'/projects?pageNum='+${pageInfo.prePage}">
+                        <i class="ace-icon fa fa-angle-double-left"></i>
+                    </a>
+                </li>
+                <!--遍历条数-->
+                <li th:each="nav:${pageInfo.navigatepageNums}">
+                    <a th:href="'/projects?pageNum='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
+                    <span style="font-weight: bold;background: #6faed9;" th:if="${nav == pageInfo.pageNum}" th:text="${nav}" ></span>
+                </li>
+                <li class="next" th:if="${pageInfo.hasNextPage}">
+                    <a th:href="'/projects?pageNum='+${pageInfo.nextPage}">
+                        <i class="ace-icon fa fa-angle-double-right"></i>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="'/projects?pageNum='+${pageInfo.pages}">尾页</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="container" style="margin-top:20px;">
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <div id="footer">
+                        <div class="footerNav">
+                             <a rel="nofollow" href="http://www.atguigu.com">关于我们</a> | <a rel="nofollow" href="http://www.atguigu.com">服务条款</a> | <a rel="nofollow" href="http://www.atguigu.com">免责声明</a> | <a rel="nofollow" href="http://www.atguigu.com">网站地图</a> | <a rel="nofollow" href="http://www.atguigu.com">联系我们</a>
+                        </div>
+                        <div class="copyRight">
+                            Copyright ?2010-2014atguigu.com 版权所有
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+      
+    </div> <!-- /container -->
+
+	<script>
+$('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+	</script>
+  </body>
+</html>

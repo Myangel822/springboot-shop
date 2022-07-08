@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/theme.css">
+      <script src="jquery/jquery-2.1.1.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="script/docs.min.js"></script>
+      <script src="script/back-to-top.js"></script>
+	<style>
+#footer {
+    padding: 15px 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    text-align: center;
+}
+#topcontrol {
+  color: #fff;
+  z-index: 99;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  background: #222;
+  position: relative;
+  right: 14px !important;
+  bottom: 11px !important;
+  border-radius: 3px !important;
+}
+
+#topcontrol:after {
+  /*top: -2px;*/
+  left: 8.5px;
+  content: "\f106";
+  position: absolute;
+  text-align: center;
+  font-family: FontAwesome;
+}
+
+#topcontrol:hover {
+    color: #fff;
+    background: #18ba9b;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    border-bottom-color: #ddd;
+}
+.nav-tabs>li>a {
+    border-radius: 0;
+}
+	</style>
+  </head>
+  <body>
+ <div class="navbar-wrapper">
+      <div class="container">
+			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			  <div class="container">
+				<div class="navbar-header">
+				  <a class="navbar-brand" href="#" style="font-size:32px;">二手交易平台</a>
+				</div>
+                  <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                      <ul class="nav navbar-nav">
+                          <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <span id="username" class="name" th:text="${session.loginUser?.username}"></span><span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                  <li><a href="center.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
+                                  <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
+                                  <li class="divider"></li>
+                                  <li><a th:href="@{/signOffUser}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                              </ul>
+                          </li>
+                      </ul>
+                  </div>
+			  </div>
+			</nav>
+      </div>
+    </div>
+
+        <div class="container" >
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <div class="row clearfix">
+                        <div class="col-md-8 column">
+                            <img alt="140x140" width="740" th:src="@{'/images/'+${Good.headerFilePath}}" />
+                           
+                        </div>
+                        <div class="col-md-4 column">
+                            <div class="panel panel-default" style="border-radius: 0px;">
+                                <div class="panel-heading" style="background-color: #fff;border-color: #fff;">
+                                    <span class="label label-success"><i class="glyphicon glyphicon-tag"></i> 售卖中</span>
+                                </div>
+                                <div class="panel-body">
+
+                                    <h3 >
+                                        <p> 商品名称：<span th:text="${Good.goodName}"></span></p>
+                                        商品价格：<span th:text="${Good.price}"></span>
+                                        <p>配送费用：包邮</p>
+
+                                    </h3>
+                                    <p> 剩余数量：<span th:text="${Good.sales}"></span></p>
+                                    <div>
+                                     <p>历史销售：<span th:text="${Good.history}"></span></p>
+                                        <a th:href="@{/shopcar/}+${Good.id}" class="shopcar">
+                                            <button type="button" class="btn  btn-warning btn-lg btn-block" >加入购物车</button>
+                                        </a>
+
+                                        <a th:href="@{/pay-step-1/}+${Good.id}">
+                                            <button type="button" class="btn  btn-warning btn-lg btn-block">立即购买</button>
+                                        </a>
+                                    </div>
+                                </div>
+                </div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+    
+
+        <div class="container" style="margin-top:20px;">
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                    <div id="footer">
+                        <div class="footerNav">
+                             <a rel="nofollow" href="http://www.atguigu.com">关于我们</a> | <a rel="nofollow" href="http://www.atguigu.com">服务条款</a> | <a rel="nofollow" href="http://www.atguigu.com">免责声明</a> | <a rel="nofollow" href="http://www.atguigu.com">网站地图</a> | <a rel="nofollow" href="http://www.atguigu.com">联系我们</a>
+                        </div>
+                        <div class="copyRight">
+                            Copyright ?2010-2014atguigu.com 版权所有
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+      
+    </div> <!-- /container -->
+    
+    
+
+    </div>
+    
+
+	<script>
+        $(".shopcar").click(function (){
+            alert("已成功添加购物车");
+        });
+	</script>
+  </body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="jquery/jquery-2.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="script/docs.min.js"></script>
+    <style>
+        .tree li {
+            list-style-type: none;
+            cursor:pointer;
+        }
+        .tree-closed {
+            height : 40px;
+        }
+        .tree-expanded {
+            height : auto;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div><a class="navbar-brand" style="font-size:32px;" href="#">二手交易平台-管理员界面</a></div>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li style="padding-top:8px;">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i> <span id="username1" class="name" th:text="${session.loginAdmin?.username}"></span> <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
+                            <li class="divider"></li>
+                            <li><a th:href="@{/signOffAdmin}"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li style="margin-left:10px;padding-top:8px;">
+                    <button type="button" class="btn btn-default btn-danger">
+                        <span class="glyphicon glyphicon-question-sign"></span> 帮助
+                    </button>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="查询">
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <div class="tree">
+                <ul style="padding-left:0px;" class="list-group">
+                    <li class="list-group-item tree-closed" >
+                        <a th:href="@{/main.html}"><i class="glyphicon glyphicon-dashboard"></i> 商品审核</a>
+                    </li>
+                    <li class="list-group-item tree-closed" >
+                        <a th:href="@{/Goods.html}"><i class="glyphicon glyphicon-dashboard"></i> 商品管理</a>
+                    </li>
+                    <li class="list-group-item tree-closed">
+                        <a th:href="@{/userCheck}" ><i class="glyphicon glyphicon-dashboard"></i> 用户审核</a>
+                    </li>
+                    <li class="list-group-item tree-closed">
+                        <a th:href="@{/businessCheck}" ><i class="glyphicon glyphicon-dashboard"></i> 商家审核</a>
+                    </li>
+                    <li class="list-group-item tree-closed">
+                        <a th:href="@{/user}" ><i class="glyphicon glyphicon-dashboard"></i> 用户维护</a>
+                    </li>
+                    <li class="list-group-item tree-closed">
+                        <a th:href="@{/business_user}"><i class="glyphicon glyphicon-dashboard"></i> 卖家维护</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">用户审核</h1>
+
+            <div id="myTabContent" class="tab-content" style="margin-top:10px;">
+                <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                    <div id="myTab1" class="tab-content" style="margin-top:10px;">
+                        <div role="tabpanel" class="tab-pane fade active in" id="support" aria-labelledby="home-tab">
+                            <div class="container-fluid">
+                                <div class="row clearfix">
+                                    <div class="col-md-12 column" style="margin-top:10px;padding:0;">
+                                        <table class="table table-bordered" style="text-align:center;">
+                                            <thead>
+                                            <tr style="background-color:#ddd;">
+                                                <td width="120" >注册ID</td>
+                                                <td width="200">用户名</td>
+                                                <td width="90">密码</td>
+                                                <td width="120">姓名</td>
+                                                <td width="80">电话</td>
+                                                <td width="80">邮箱</td>
+                                                <td width="120">城市</td>
+                                                <td width="80">性别</td>
+                                                <td width="80">银行账户</td>
+                                                <td width="80">审核状态</td>
+                                                <td width="80">操作</td>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="business:${businessList}">
+                                                <td th:text="${business.bid}"></td>
+                                                <td th:text="${business.username}"></td>
+                                                <td th:text="${business.password}"></td>
+                                                <td th:text="${business.name1}"></td>
+                                                <td th:text="${business.tel}"></td>
+                                                <td th:text="${business.email}"></td>
+                                                <td th:text="${business.city}"></td>
+                                                <td th:text="${business.sex}"></td>
+                                                <td th:text="${business.account}"></td>
+                                                <td th:text="${business.checked}"></td>
+                                                <td>
+                                                    <div class="PublicTableBtnIcon Color4Btn Js_delete">
+                                                        <button th:attr="ck_uri=@{/putBusinessState/}+${business.bid}"  class="btn btn-sm btn-danger check">通过</button>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="check" method="post" >
+    <input type="hidden" name="_method" value="put">
+</form>
+
+<script>
+    $(".check").click(function(){
+
+        $("#check").attr("action",$(this).attr("ck_uri")).submit();
+        alert("成功通过");
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $(".list-group-item").click(function(){
+            if ( $(this).find("ul") ) {
+                $(this).toggleClass("tree-closed");
+                if ( $(this).hasClass("tree-closed") ) {
+                    $("ul", this).hide("fast");
+                } else {
+                    $("ul", this).show("fast");
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

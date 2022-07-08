@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mxy.springbootshop.Mapper.AccountMapper">
+
+    <select id="getMoneyByUid" resultType="com.mxy.springbootshop.POJO.Account">
+        select * from t_account_user where uid = #{uid}
+    </select>
+
+    <select id="getObjectByAccountAndPassword" resultType="com.mxy.springbootshop.POJO.Account">
+        select * from t_account_user where account=#{account} and password=#{password}
+    </select>
+
+    <update id="updateAccountMoney" parameterType="com.mxy.springbootshop.POJO.Account">
+        update t_account_user set money=money-#{count} where uid = #{uid}
+    </update>
+
+    <update id="updateAccountMoneyReturn" parameterType="com.mxy.springbootshop.POJO.Account">
+        update t_account_user set money=money+#{count} where uid = #{uid}
+    </update>
+
+</mapper>

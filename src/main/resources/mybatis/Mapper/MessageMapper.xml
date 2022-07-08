@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mxy.springbootshop.Mapper.MessageMapper">
+
+    <insert id="insertMessage">
+        insert into t_message values(null,#{goodName},#{des},#{returnDes},#{uid},#{oid},#{bid})
+    </insert>
+
+    <update id="updateMessageReturnDes" parameterType="com.mxy.springbootshop.POJO.Message">
+        update t_message set returnDes=#{returnDes} where oid = #{oid}
+    </update>
+
+    <select id="getMessageByUid" resultType="com.mxy.springbootshop.POJO.Message">
+        select * from t_message where uid = #{uid}
+    </select>
+
+    <select id="getMessageByBid" resultType="com.mxy.springbootshop.POJO.Message">
+        select * from t_message where bid = #{bid}
+    </select>
+
+    <select id="getMessageByOid" resultType="com.mxy.springbootshop.POJO.Message">
+        select  * from t_message where oid=#{oid}
+    </select>
+
+</mapper>

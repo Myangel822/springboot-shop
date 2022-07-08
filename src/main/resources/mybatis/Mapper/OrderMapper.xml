@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mxy.springbootshop.Mapper.OrderMapper">
+
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into t_order values(null,#{uid},#{goodName},#{des},#{number},#{price},#{count},#{checked},#{delivery},#{bid})
+    </insert>
+
+    <select id="getOrderByUid" resultType="com.mxy.springbootshop.POJO.Order">
+        select * from t_order where uid = #{id}
+    </select>
+    
+    <select id="getOrderById" resultType="com.mxy.springbootshop.POJO.Order">
+        select * from t_order where id=#{id}
+    </select>
+    
+    <update id="updateOrderChecked" parameterType="com.mxy.springbootshop.POJO.Order">
+        update t_order set checked=#{checked} where id = #{id}
+    </update>
+
+    <select id="getOrderByBid" resultType="com.mxy.springbootshop.POJO.Order">
+        select * from t_order where bid = #{bid}
+    </select>
+
+    <update id="updateOrderDelivery" parameterType="com.mxy.springbootshop.POJO.Order">
+        update t_order set delivery=#{delivery} where id=#{id}
+    </update>
+</mapper>

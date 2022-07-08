@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mxy.springbootshop.Mapper.BusinessMapper">
+
+    <!--    insertUser(User user)-->
+    <insert id="insertBusiness" useGeneratedKeys="true" keyProperty="bid">
+        insert into t_business values (null,#{username},#{password},#{name1},#{tel},#{email},#{city},#{sex},#{account},#{checked})
+    </insert>
+
+
+    <!--getUserByUsername(String username)-->
+    <select id="getBusinessByUsername" resultType="com.mxy.springbootshop.POJO.Business">
+        select * from t_business where username = #{username}
+    </select>
+
+    <select id="getBusinessByBid" resultType="com.mxy.springbootshop.POJO.Business">
+        select * from t_business where bid =#{bid}
+    </select>
+
+    <!--userLogin(@Param("username") String username,@Param("password") String password)-->
+    <select id="businessLogin" resultType="com.mxy.springbootshop.POJO.Business">
+        select * from t_business where username = #{username} and password = #{password}
+    </select>
+
+    <!--    getUserByEmail(String email)-->
+    <select id="getBusinessByEmail" resultType="com.mxy.springbootshop.POJO.Business">
+        select * from t_business where email = #{email}
+    </select>
+
+    <select id="getAllBusiness" resultType="com.mxy.springbootshop.POJO.Business">
+        select * from t_business
+    </select>
+
+    <delete id="deleteBusinessByBid">
+        delete from t_business where bid=#{bid}
+    </delete>
+
+    <update id="updateBusinessChecked" parameterType="com.mxy.springbootshop.POJO.Business">
+        update t_business set checked=#{checked} where bid=#{bid}
+    </update>
+
+</mapper>

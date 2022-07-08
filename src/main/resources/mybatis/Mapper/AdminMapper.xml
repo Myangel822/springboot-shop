@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mxy.springbootshop.Mapper.AdminMapper">
+
+    <!--    insertUser(User user)-->
+    <insert id="insertAdmin" useGeneratedKeys="true" keyProperty="aid">
+        insert into t_admin values (null,#{username},#{password},#{name},#{tel},#{email},#{city},#{sex},#{account})
+    </insert>
+
+
+    <!--getUserByUsername(String username)-->
+    <select id="getAdminByUsername" resultType="com.mxy.springbootshop.POJO.Admin">
+        select * from t_admin where username = #{username}
+    </select>
+
+    <!--userLogin(@Param("username") String username,@Param("password") String password)-->
+    <select id="adminLogin" resultType="com.mxy.springbootshop.POJO.Admin">
+        select * from t_admin where username = #{username} and password = #{password}
+    </select>
+
+    <!--    getUserByEmail(String email)-->
+    <select id="getAdminByEmail" resultType="com.mxy.springbootshop.POJO.Admin">
+        select * from t_admin where email = #{email}
+    </select>
+</mapper>

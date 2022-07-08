@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mxy.springbootshop.Mapper.ShopcarMapper">
+
+    <insert id="insertGid">
+        insert into t_shopcar values(null,#{uid},#{gid})
+    </insert>
+
+    <select id="getGoods" resultType="com.mxy.springbootshop.POJO.Goods">
+        select * from t_shopcar left join  t_Goods on t_Goods.id = t_shopcar.id
+    </select>
+
+    <delete id="deleteGid" >
+        delete from t_shopcar where id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mxy.springbootshop.Mapper.UserMapper">
+
+<!--    insertUser(User user)-->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="uid">
+        insert into t_user values (null,#{username},#{password},#{name1},#{tel},#{email},#{city},#{sex},#{account},#{mark},#{checked})
+    </insert>
+
+
+    <!--getUserByUsername(String username)-->
+    <select id="getUserByUsername" resultType="com.mxy.springbootshop.POJO.User">
+        select * from t_user where username = #{username}
+    </select>
+
+    <!--userLogin(@Param("username") String username,@Param("password") String password)-->
+    <select id="userLogin" resultType="com.mxy.springbootshop.POJO.User">
+        select * from t_user where username = #{username} and password = #{password}
+    </select>
+
+<!--    getUserByEmail(String email)-->
+    <select id="getUserByUid" resultType="com.mxy.springbootshop.POJO.User">
+        select * from t_user where uid = #{uid}
+    </select>
+
+    <select id="getAllUsers" resultType="com.mxy.springbootshop.POJO.User">
+        select * from t_user
+    </select>
+
+    <delete id="deleteUserByUid">
+        delete from t_user where uid=#{uid}
+    </delete>
+
+    <update id="updateUser" parameterType="com.mxy.springbootshop.POJO.User" >
+        update t_user set name1=#{user.name1}, tel=#{user.tel},email=#{user.email},city=#{user.city},account=#{user.account} where uid=#{uid}
+    </update>
+
+    <update id="updateUserMark" parameterType="com.mxy.springbootshop.POJO.User">
+        update t_user set mark = mark + #{mark} where uid = #{uid}
+    </update>
+
+    <update id="updateUserState" parameterType="com.mxy.springbootshop.POJO.User">
+        update t_user set checked = #{checked} where uid = #{uid}
+    </update>
+
+    <select id="getUserByResearchInput" resultType="com.mxy.springbootshop.POJO.User">
+        select * from t_user where username like '%${researchInput}%'
+    </select>
+</mapper>
